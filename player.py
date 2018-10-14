@@ -19,25 +19,29 @@ class Player:
 
 	Attributes:
 		name: The player's name
+		gold: The player's amount of gold coins
 		health: The player's remaining HP
 		magic: The player's magic points
 		atk: The player's attack points
 		dfn: The player's defense points
 		spd: The player's speed points
-		type: The player's combatant type
+		style: The player's combatant style
 		moves: A list of the player's moves
 		status: A list of the player's status effects
+		bag: A list of the player's inventory items
 	"""
-	def __init__(self, name, health, magic, atk, dfn, spd, type, moves, status):
+	def __init__(self, name, gold, health, magic, atk, dfn, spd, type, moves, status, bag):
 		self.name = name
+		self.gold = gold
 		self.health = health
 		self.magic = magic
 		self.atk = atk
 		self.dfn = dfn
 		self.spd = spd
-		self.type = type
+		self.style =style
 		self.moves = moves
 		self.status = status
+		self.bag = bag
 
 	def write(self, filename):
 		"""Writes player data to disk

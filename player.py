@@ -63,3 +63,16 @@ class Player:
 		player = pickle.load(file)
 		file.close()
 		return player
+	
+	def bleed(self, damage):
+		"""Reduces player health value by damage amount
+		Triggers self.death() if health <= 0
+		
+		Args:
+			damage: amount to reduce health by
+		"""
+		self.health -= damage
+		
+		"""if self.health <= 0:
+		    self.death()
+		"""

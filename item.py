@@ -13,3 +13,23 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 class Item:
+        """Represents an item in the game
+        
+        Attributes:
+                name: The item's name
+                attack: The item's attack value
+                rAttack: The item's ranged attack value
+                mAttack: The item's magic attack value
+                value: The item's monetary value
+                recipe: The item's crafting recipe
+       """
+        def __init__(self, name, attack, rAttack, mAttack, value):
+                self.name = name
+                self.attack = attack
+                self.rAttack = rAttack
+                self.mAttack = mAttack
+                self.value = value
+                self.recipe = recipe
+                
+        def wield(self):
+                return "using {}.".format(self.name)

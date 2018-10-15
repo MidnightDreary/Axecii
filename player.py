@@ -30,7 +30,7 @@ class Player:
 		status: A list of the player's status effects
 		bag: A list of the player's inventory items
 	"""
-	def __init__(self, name, gold, health, magic, atk, dfn, spd, type, moves, status, bag):
+	def __init__(self, name, gold, health, magic, atk, dfn, spd, style, moves, status, bag):
 		self.name = name
 		self.gold = gold
 		self.health = health

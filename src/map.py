@@ -17,12 +17,14 @@ class Map:
 
 	Attributes:
 		map: The map itself represented as a 2D array
+		keypoints: A 2D array containing the filenames of the 3D representations of key points on the map, if present
 	"""
 
-	def __init__(map):
+	def __init__(self, map, keypoints):
 		self.map = map
+		self.keypoints = keypoints
 	
-	def write(filename):
+	def write(self, filename):
 		"""Writes the map to disk
 
 		Args:
@@ -30,7 +32,10 @@ class Map:
 		"""
 		file = open(filename, "w")
 		file.write("\n".join(
-			["".join(line) for line in map]))
+			["".join(line) for line in self.map]))
+		file.write("\n")
+		file.write("\n".join(
+			[" ".join(line) for line in self.keypoints]))
 		file.close()
 	
 	@staticmethod
@@ -44,5 +49,51 @@ class Map:
 			A Map object constructed from the data in the file
 		"""
 		file = open(filename, "r")
-		map = [list(line) for line in file.readlines()]
+		lines = file.readlines()
+		map = [list(line.strip()) for line in lines[:len(lines)//2]]
+		keypoints = [line.split(" ") for line in lines[len(lines)//2:]]
 		file.close()
+		# if a stray additional line was added, pop it from the list
+		if len(keypoints[-1]) < len(keypoints[-2]):
+			keypoints.pop()
+		return Map(map, keypoints)
+
+	def get3DRepresentation(self, x, y):
+		"""Obtains the 3D representation of the desired location on the map, if present
+
+		Args:
+			x: X coordinate of relevant location (from west)
+			y: Y coordinate of relevant location (from north)
+
+		Returns:
+			The 3D view at the given location, if any
+		"""
+		if self.keypoints[y][x] == ".":
+			return ""
+		file = open(self.keypoints[y][x], "r")
+		rep3D = file.read()
+		file.close()
+		return rep3D
+
+	def getVisibleArea(self, x, y, dx, dy):
+		"""Obtains the section of the map that the player can see from a given point
+
+		Args:
+			x: X coodinate of center of field of vision
+			y: Y coodinate of center of field of vision
+			dx: Width (east-west length) of player's field of vision
+			dy: Height (north-south length) of player's field of vision
+
+		Returns:
+			The visible section of the map centered at the given location
+		"""
+		xmin = max(0, x - dx // 2)
+		xmax = min(len(self.map[0]) - 1, x + dx // 2)
+
+		ymin = max(0, y - dy // 2)
+		ymax = min(len(self.map) - 1, y + dy // 2)
+
+		return [
+			[self.map[y][x] for x in range(xmin, xmax + 1)]
+			for y in range(ymin, ymax + 1)
+		]

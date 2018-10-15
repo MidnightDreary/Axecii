@@ -12,9 +12,37 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from player import Player
-from map import Map
+class Map:
+	"""Represents a single map in the game
 
-# Application entry point
-if __name__ == "__main__":
-	print("Axecii")
+	Attributes:
+		map: The map itself represented as a 2D array
+	"""
+
+	def __init__(map):
+		self.map = map
+	
+	def write(filename):
+		"""Writes the map to disk
+
+		Args:
+			filename: Destination file for map data
+		"""
+		file = open(filename, "w")
+		file.write("\n".join(
+			["".join(line) for line in map]))
+		file.close()
+	
+	@staticmethod
+	def read(filename):
+		"""Reads a map from disk
+
+		Args:
+			filename: Source file for map data
+
+		Returns:
+			A Map object constructed from the data in the file
+		"""
+		file = open(filename, "r")
+		map = [list(line) for line in file.readlines()]
+		file.close()

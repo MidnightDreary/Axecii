@@ -1,5 +1,5 @@
-# Copyright (C) 2018  Arc676/Alessandro Vinciguerra <alesvinciguerra@gmail.com>
 # Copyright (C) 2018  MidnightDreary/Janik Driehaus <jandriehaus@gmail.com>
+# Copyright (C) 2018 Arc676/Alessandro Vinciguerra <alesvinciguerra@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,13 +16,10 @@
 import shutil
 
 def getScale():
-        """        
-        Returns:
-                The current width and height of the terminal
+        """Retrieves the current width and height of the terminal
 
-        Values:
-                width: The width of the terminal
-                height: The height of the terminal
+        Returns:
+                The current width and height of the terminal as a tuple
         """
         width, height = shutil.get_terminal_size(fallback=(80,24))
         return (width, height)  # return width and height as tuple

@@ -51,7 +51,7 @@ class Map:
 		file = open(filename, "r")
 		lines = file.readlines()
 		mapdata = [list(line.strip()) for line in lines[:len(lines)//2]]
-		keypoints = [line.split(" ") for line in lines[len(lines)//2:]]
+		keypoints = [line.strip().split(" ") for line in lines[len(lines)//2:]]
 		file.close()
 		# if a stray additional line was added, pop it from the list
 		if len(keypoints[-1]) < len(keypoints[-2]):

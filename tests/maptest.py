@@ -43,7 +43,7 @@ class TestMapMethods(unittest.TestCase):
 		file.write("\n")
 		file.close()
 		map1 = Map.read("test2.ignore")
-		self.assertEqual(map1.mapdata, mapdata)
+		self.assertEqual(map1.keypoints, keypoints)
 
 if __name__ == '__main__':
 	sys.path.append('../src')

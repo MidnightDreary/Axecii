@@ -24,21 +24,21 @@ keypoints = [['.' for i in range(3)] for j in range(3)]
 
 class TestMapMethods(unittest.TestCase):
 	def testCreateMap(self):
-		map = Map(mapdata, keypoints)
-		self.assertEqual(map.getVisibleArea(1, 1, 1, 1), [["O"]])
-		self.assertEqual(map.getVisibleArea(1, 1, 3, 3), mapdata)
-		self.assertEqual(map.getVisibleArea(1, 1, 10, 10), mapdata)
+		testmap = Map(mapdata, keypoints)
+		self.assertEqual(testmap.getVisibleArea(1, 1, 1, 1), [["O"]])
+		self.assertEqual(testmap.getVisibleArea(1, 1, 3, 3), mapdata)
+		self.assertEqual(testmap.getVisibleArea(1, 1, 10, 10), mapdata)
 	
 	def testWriteMap(self):
-		map = Map(mapdata, keypoints)
-		map.write("test")
-		map1 = Map.read("test")
-		self.assertEqual(map1.map, mapdata)
-		self.assertEqual(map.map, map1.map)
+		testmap = Map(mapdata, keypoints)
+		testmap.write("test")
+		testmap1 = Map.read("test")
+		self.assertEqual(testmap1.map, mapdata)
+		self.assertEqual(testmap.map, testmap1.map)
 	
 	def testNewlineRemoval(self):
-		map = Map(mapdata, keypoints)
-		map.write("test2")
+		testmap = Map(mapdata, keypoints)
+		testmap.write("test2")
 		file = open("test2", "a")
 		file.write("\n")
 		file.close()

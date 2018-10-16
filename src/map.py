@@ -20,8 +20,8 @@ class Map:
 		keypoints: A 2D array containing the filenames of the 3D representations of key points on the map, if present
 	"""
 
-	def __init__(self, map, keypoints):
-		self.map = map
+	def __init__(self, mapdata, keypoints):
+		self.mapdata = mapdata
 		self.keypoints = keypoints
 	
 	def write(self, filename):
@@ -32,7 +32,7 @@ class Map:
 		"""
 		file = open(filename, "w")
 		file.write("\n".join(
-			["".join(line) for line in self.map]))
+			["".join(line) for line in self.mapdata]))
 		file.write("\n")
 		file.write("\n".join(
 			[" ".join(line) for line in self.keypoints]))
@@ -50,13 +50,13 @@ class Map:
 		"""
 		file = open(filename, "r")
 		lines = file.readlines()
-		map = [list(line.strip()) for line in lines[:len(lines)//2]]
+		mapdata = [list(line.strip()) for line in lines[:len(lines)//2]]
 		keypoints = [line.split(" ") for line in lines[len(lines)//2:]]
 		file.close()
 		# if a stray additional line was added, pop it from the list
 		if len(keypoints[-1]) < len(keypoints[-2]):
 			keypoints.pop()
-		return Map(map, keypoints)
+		return Map(mapdata, keypoints)
 
 	def get3DRepresentation(self, x, y):
 		"""Obtains the 3D representation of the desired location on the map, if present
@@ -88,12 +88,12 @@ class Map:
 			The visible section of the map centered at the given location
 		"""
 		xmin = max(0, x - dx // 2)
-		xmax = min(len(self.map[0]) - 1, x + dx // 2)
+		xmax = min(len(self.mapdata[0]) - 1, x + dx // 2)
 
 		ymin = max(0, y - dy // 2)
-		ymax = min(len(self.map) - 1, y + dy // 2)
+		ymax = min(len(self.mapdata) - 1, y + dy // 2)
 
 		return [
-			[self.map[y][x] for x in range(xmin, xmax + 1)]
+			[self.mapdata[y][x] for x in range(xmin, xmax + 1)]
 			for y in range(ymin, ymax + 1)
 		]

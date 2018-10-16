@@ -31,19 +31,19 @@ class TestMapMethods(unittest.TestCase):
 	
 	def testWriteMap(self):
 		testmap = Map(mapdata, keypoints)
-		testmap.write("test")
-		testmap1 = Map.read("test")
-		self.assertEqual(testmap1.map, mapdata)
-		self.assertEqual(testmap.map, testmap1.map)
+		testmap.write("test.ignore")
+		testmap1 = Map.read("test.ignore")
+		self.assertEqual(testmap1.mapdata, mapdata)
+		self.assertEqual(testmap.mapdata, testmap1.mapdata)
 	
 	def testNewlineRemoval(self):
 		testmap = Map(mapdata, keypoints)
-		testmap.write("test2")
-		file = open("test2", "a")
+		testmap.write("test2.ignore")
+		file = open("test2.ignore", "a")
 		file.write("\n")
 		file.close()
-		map1 = Map.read("test")
-		self.assertEqual(map1.map, mapdata)
+		map1 = Map.read("test2.ignore")
+		self.assertEqual(map1.mapdata, mapdata)
 
 if __name__ == '__main__':
 	sys.path.append('../src')

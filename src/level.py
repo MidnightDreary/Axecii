@@ -19,5 +19,5 @@ def convertExp(exp):
         Returns:
                 The level as an integer
         """
-        lvl = lambda x: int(((x // 25)** 0.5) // 1)
+        lvl = lambda x: int((x // 25)** 0.5)
         return lvl(exp)

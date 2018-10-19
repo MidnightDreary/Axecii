@@ -1,3 +1,4 @@
+# Copyright (C) 2018  MidnightDreary/Janik Driehaus <jandriehaus@gmail.com>
 # Copyright (C) 2018  Arc676/Alessandro Vinciguerra <alesvinciguerra@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify

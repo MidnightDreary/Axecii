@@ -21,5 +21,4 @@ def getScale():
         Returns:
                 The current width and height of the terminal as a tuple
         """
-        width, height = shutil.get_terminal_size(fallback=(80,24))
-        return (width, height)  # return width and height as tuple
+        return tuple(shutil.get_terminal_size())  # return width and height as tuple

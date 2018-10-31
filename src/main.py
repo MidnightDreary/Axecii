@@ -48,5 +48,5 @@ if __name__ == "__main__":
 		elif key in "wasd":
 			x, y = move(x, y, key)
 		visible = currentMap.getVisibleArea(x, y, w, h)
-		visible = "".join(["".join(line) for line in visible])
+		visible = Map.mapToString(visible)
 		print(visible)

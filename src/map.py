@@ -76,25 +76,33 @@ class Map:
 		file.close()
 		return rep3D
 
-	def getVisibleArea(self, x, y, dx, dy):
+	def getVisibleArea(self, rx, ry, dx, dy):
 		"""Obtains the section of the map that the player can see from a given point
 
 		Args:
-			x: X coodinate of center of field of vision
-			y: Y coodinate of center of field of vision
+			rx: X coodinate of center of field of vision
+			ry: Y coodinate of center of field of vision
 			dx: Width (east-west length) of player's field of vision
 			dy: Height (north-south length) of player's field of vision
 
 		Returns:
 			The visible section of the map centered at the given location
 		"""
-		xmin = max(0, x - dx // 2)
-		xmax = min(len(self.mapdata[0]) - 1, x + dx // 2)
-
-		ymin = max(0, y - dy // 2)
-		ymax = min(len(self.mapdata) - 1, y + dy // 2)
-
 		return [
-			[self.mapdata[y][x] for x in range(xmin, xmax + 1)]
-			for y in range(ymin, ymax + 1)
+			[
+				("@" if (x == rx and y == ry) else self.mapdata[y][x]) if (0 < x < len(self.mapdata[0]) - 1) else " " for x in range(rx - dx // 2, rx + dx // 2)
+			]
+			if (0 < y < len(self.mapdata) - 1) else [""] for y in range(ry - dy // 2, ry + dy // 2)
 		]
+
+	@staticmethod
+	def mapToString(arr):
+		"""Converts a map region to a printable string
+
+		Args:
+			arr: Map region as 2D array
+
+		Returns:
+			String form of that map region
+		"""
+		return "\n".join(["".join(list(line)) for line in arr])

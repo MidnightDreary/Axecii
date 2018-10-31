@@ -15,7 +15,38 @@
 
 from player import Player
 from map import Map
+import scaling
+import getch
+
+directions = {
+	'w' : (0, -1),
+	'a' : (-1, 0),
+	's' : (0, 1),
+	'd' : (1, 0)
+}
+
+def move(x, y, key):
+	global directions
+	x += directions[key][0]
+	y += directions[key][1]
+	return x, y
+
+def saveAndQuit():
+	pass
 
 # Application entry point
 if __name__ == "__main__":
-	print("Axecii")
+	currentMap = Map.read("edalus.map")
+	w, h = 0, 0
+	x, y = 88, 18
+	while True:
+		w, h = scaling.getScale()
+		key = getch.getch()
+		if key == 'q':
+			saveAndQuit()
+			break
+		elif key in "wasd":
+			x, y = move(x, y, key)
+		visible = currentMap.getVisibleArea(x, y, w, h)
+		visible = "".join(["".join(line) for line in visible])
+		print(visible)

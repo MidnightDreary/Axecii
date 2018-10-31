@@ -76,6 +76,18 @@ class Map:
 		file.close()
 		return rep3D
 
+	def isValidLocation(self, x, y):
+		"""Determines whether a location is on the map
+
+		Args:
+			x: X coordinate
+			y: Y coordinate
+
+		Returns:
+			Whether the coordinates represent a valid location on the map
+		"""
+		return 0 <= x < len(self.mapdata[0]) and 0 <= y < len(self.mapdata)
+
 	def getVisibleArea(self, rx, ry, dx, dy):
 		"""Obtains the section of the map that the player can see from a given point
 
@@ -88,11 +100,13 @@ class Map:
 		Returns:
 			The visible section of the map centered at the given location
 		"""
+		Dx = range(rx - dx // 2, rx + dx // 2)
+		Dy = range(ry - dy // 2, ry + dy // 2)
 		return [
 			[
-				("@" if (x == rx and y == ry) else self.mapdata[y][x]) if (0 < x < len(self.mapdata[0]) - 1) else " " for x in range(rx - dx // 2, rx + dx // 2)
-			]
-			if (0 < y < len(self.mapdata) - 1) else [""] for y in range(ry - dy // 2, ry + dy // 2)
+				("@" if (x == rx and y == ry) else self.mapdata[y][x]) if self.isValidLocation(x, y) else "~" for x in Dx
+			] if self.isValidLocation(0, y)
+			else ["~" for x in Dx] for y in Dy
 		]
 
 	@staticmethod

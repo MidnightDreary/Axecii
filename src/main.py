@@ -17,6 +17,7 @@ from player import Player
 from map import Map
 import scaling
 import getch
+import os
 
 directions = {
 	'w' : (0, -1),
@@ -49,6 +50,7 @@ def saveAndQuit():
 
 # Application entry point
 if __name__ == "__main__":
+	os.system("title Axecii")
 	currentMap = Map.read("edalus.map")
 	w, h = 0, 0
 	x, y = 88, 18
